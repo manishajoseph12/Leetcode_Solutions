@@ -1,18 +1,46 @@
-# LeetCode 189: Rotate Array.
+#LeetCode #189 – Rotate Array
 
-# Problem: Rotate an array to the right by k steps.
-# Example:
-# nums = [1,2,3,4,5,6,7]
-# k = 3
+def rotate(arr, k):
+    n = len(arr)
+    k = k % n
+    print(k)
 
-# output:
-# [5,6,7,1,2,3,4]
+    # step 1: reverse whole array
+    arr.reverse()
+    print(arr)
 
-nums = [1,2,3,4,5,6,7]
-k = 3
-k = k % len(nums)
-print(nums[-k:])
-print(nums[:-k])
-nums = nums[-k:] + nums[:-k]
+    # step 2: reverse first k
+    left = 0
+    right = k - 1
+    while left < right:
+        arr[left], arr[right] = arr[right], arr[left]
+        left += 1
+        right -= 1
 
-print(nums)
+    # step 3: reverse remaining
+    left = k
+    right = n - 1
+    while left < right:
+        arr[left], arr[right] = arr[right], arr[left]
+        left += 1
+        right -= 1
+
+    return arr
+arr = [1,2,3,4,5,6,7]
+k=7
+print(rotate(arr,k))
+
+
+#2) 
+def rotate(arr, k):
+    n = len(arr)
+    k = k % n
+    res = [0] * n
+
+    for i in range(n):
+        res[(i + k) % n] = arr[i]
+
+    return res
+arr = [1,2,3,4,5,6,7]
+k=3
+print(rotate(arr,k))
